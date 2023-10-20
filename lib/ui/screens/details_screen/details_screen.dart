@@ -43,18 +43,41 @@ class _DetailsScreenState extends State<DetailsScreen> {
             style: AppTheme.appBarTitleTextStyle,
           ),
         ),
-        body: Center(
-          child: Text(fileContent),
-        ),
+        body: fileContent.isEmpty
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      fileContent,
+                      textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        color: Appcolors.accent,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }
 
   void readFile() async {
-    String file =
-        await rootBundle.loadString("assets/files/quran/${arguments.fileName}");
+    String file = await rootBundle.loadString(arguments.isQuran
+        ? "assets/files/quran/${arguments.fileName}"
+        : "assets/files/ahadeth/${arguments.fileName}");
     fileContent = file;
-    print(file);
+
+    List<String> fileLines = file.split("\n");
+    for (int i = 0; i < fileLines.length; i++) {
+      fileLines[i] += arguments.isQuran ? "(${i + 1})" : " ";
+    }
+    fileContent = fileLines.join();
     setState(() {});
   }
 }
