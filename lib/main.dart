@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/ui/screens/details_screen/details_screen.dart';
 import 'package:islami_app/ui/screens/home/home_screen.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         HomeScreen.routName: (_) => HomeScreen(),
+        DetailsScreen.routeName: (_) => DetailsScreen(),
       },
       initialRoute: HomeScreen.routName,
     );

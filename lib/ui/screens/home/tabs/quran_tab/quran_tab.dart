@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/models/details_screen_args.dart';
+import 'package:islami_app/ui/screens/details_screen/details_screen.dart';
 import 'package:islami_app/ui/utlis/app_assets.dart';
 import 'package:islami_app/ui/utlis/app_colors.dart';
 import 'package:islami_app/ui/utlis/app_thems.dart';
@@ -37,11 +39,23 @@ class QuranTab extends StatelessWidget {
             flex: 7,
             child: ListView.builder(
               itemCount: Constants.suraNames.length,
-              itemBuilder: (_, index) => Text(
-                Constants.suraNames[index],
-                textAlign: TextAlign.center,
-                style: AppTheme.quranTabTitleTextStyle.copyWith(
-                  fontWeight: FontWeight.normal,
+              itemBuilder: (_, index) => TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    DetailsScreen.routeName,
+                    arguments: DetailsScreenArgs(
+                        suraOrHadethName: Constants.suraNames[index],
+                        fileName: "${index + 1}.txt",
+                        isQuran: true),
+                  );
+                },
+                child: Text(
+                  Constants.suraNames[index],
+                  textAlign: TextAlign.center,
+                  style: AppTheme.quranTabTitleTextStyle.copyWith(
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
             ),
